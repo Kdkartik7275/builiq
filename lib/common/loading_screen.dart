@@ -19,7 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
 
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
+      Navigator.pushReplacementNamed(context, AppRoutes.main);
     });
   }
 

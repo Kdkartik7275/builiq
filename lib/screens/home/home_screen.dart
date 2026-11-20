@@ -102,16 +102,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 14),
               const Text(
                 'Brand of the day',
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               BrandCard(imagePath: AppImages.brandDay),
               SizedBox(height: sectionSpacing),
               Heading(
