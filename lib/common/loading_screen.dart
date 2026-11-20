@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:builiq/constant/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-
-import 'package:builiq/bottom_nav.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -20,10 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => BottomNav()),
-      );
+      Navigator.pushReplacementNamed(context, AppRoutes.home);
     });
   }
 
@@ -32,75 +28,87 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12),
-          child: Shimmer.fromColors(
-            baseColor: const Color(0xffE9EEF4),
-            highlightColor: const Color(0xffF8FAFC),
-            period: const Duration(milliseconds: 1500),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 22,
-                      backgroundColor: Color(0xffE9EEF4),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Container(
-                        height: 40,
-                        width: double.infinity,
-                        color: const Color(0xffE9EEF4),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final scale = (constraints.maxWidth / 390).clamp(0.85, 1.0);
+
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 14 * scale,
+                vertical: 12 * scale,
+              ),
+              child: Shimmer.fromColors(
+                baseColor: const Color(0xffE9EEF4),
+                highlightColor: const Color(0xffF8FAFC),
+                period: const Duration(milliseconds: 1500),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 22 * scale,
+                            backgroundColor: const Color(0xffE9EEF4),
+                          ),
+                          SizedBox(width: 12 * scale),
+                          Expanded(
+                            child: Container(
+                              height: 40 * scale,
+                              width: double.infinity,
+                              color: const Color(0xffE9EEF4),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
 
-                const SizedBox(height: 12),
+                      SizedBox(height: 12 * scale),
 
-                const LoaderBar(height: 40, radius: 22),
+                      LoaderBar(height: 40 * scale, radius: 22 * scale),
 
-                const SizedBox(height: 16),
+                      SizedBox(height: 16 * scale),
 
-                const LoaderBar(height: 50, radius: 16),
+                      LoaderBar(height: 50 * scale, radius: 16 * scale),
 
-                const SizedBox(height: 18),
+                      SizedBox(height: 18 * scale),
 
-                const RowLoaders(height: 90),
+                      RowLoaders(height: 90 * scale),
 
-                const SizedBox(height: 18),
+                      SizedBox(height: 18 * scale),
 
-                Container(
-                  height: 80,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffE9EEF4),
-                    borderRadius: BorderRadius.circular(16),
+                      Container(
+                        height: 80 * scale,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE9EEF4),
+                          borderRadius: BorderRadius.circular(16 * scale),
+                        ),
+                      ),
+
+                      SizedBox(height: 18 * scale),
+
+                      RowLoaders(height: 120 * scale),
+
+                      SizedBox(height: 18 * scale),
+
+                      Container(
+                        height: 80 * scale,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE9EEF4),
+                          borderRadius: BorderRadius.circular(16 * scale),
+                        ),
+                      ),
+
+                      SizedBox(height: 18 * scale),
+
+                      RowLoaders(height: 120 * scale),
+                    ],
                   ),
                 ),
-
-                const SizedBox(height: 18),
-
-                const RowLoaders(height: 120),
-
-                const SizedBox(height: 18),
-
-                Container(
-                  height: 80,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffE9EEF4),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-
-                const SizedBox(height: 18),
-
-                const RowLoaders(height: 120),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -108,11 +116,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 }
 
 class LoaderBar extends StatelessWidget {
-  const LoaderBar({
-    super.key,
-    required this.height,
-    required this.radius,
-  });
+  const LoaderBar({super.key, required this.height, required this.radius});
 
   final double height;
   final double radius;
@@ -131,15 +135,16 @@ class LoaderBar extends StatelessWidget {
 }
 
 class RowLoaders extends StatelessWidget {
-  const RowLoaders({
-    super.key,
-    required this.height,
-  });
+  const RowLoaders({super.key, required this.height});
 
   final double height;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final scale = (width / 390).clamp(0.85, 1.0);
+    final gap = 12 * scale;
+
     return Row(
       children: [
         Expanded(
@@ -147,27 +152,27 @@ class RowLoaders extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
               color: const Color(0xffE9EEF4),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16 * scale),
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: gap),
         Expanded(
           child: Container(
             height: height,
             decoration: BoxDecoration(
               color: const Color(0xffE9EEF4),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16 * scale),
             ),
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: gap),
         Expanded(
           child: Container(
             height: height,
             decoration: BoxDecoration(
               color: const Color(0xffE9EEF4),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16 * scale),
             ),
           ),
         ),

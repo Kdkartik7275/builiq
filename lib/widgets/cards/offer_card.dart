@@ -1,3 +1,4 @@
+import 'package:builiq/constant/app_images.dart';
 import 'package:flutter/material.dart';
 
 class OfferCard extends StatelessWidget {
@@ -10,13 +11,13 @@ class OfferCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        color: Color(0xffEAF1F7),
+        color: const Color(0xffEAF1F7),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Special Deals',
             style: TextStyle(
               color: Colors.black,
@@ -25,27 +26,35 @@ class OfferCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "Offers across materials, services and real estate.",
-                  style: TextStyle(fontSize: 14),
-                  maxLines: 2,
+          Expanded(
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Offers across materials, services and real estate.',
+                    style: TextStyle(fontSize: 14),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-              Icon(Icons.shopping_cart_outlined),
-            ],
+                const SizedBox(width: 8),
+                Image.asset(
+                  AppImages.cart,
+                  width: 42,
+                  height: 42,
+                  fit: BoxFit.contain,
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 4),
           Row(
             children: [
-              Text(
+              const Text(
                 'Explore offers',
                 style: TextStyle(fontSize: 11, color: Colors.blue),
               ),
               const SizedBox(width: 2),
-              Icon(Icons.arrow_forward, color: Colors.blue, size: 15),
+              const Icon(Icons.arrow_forward, color: Colors.blue, size: 15),
             ],
           ),
         ],

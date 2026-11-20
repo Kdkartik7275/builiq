@@ -1,4 +1,6 @@
+import 'package:builiq/constant/app_routes.dart';
 import 'package:builiq/common/loading_screen.dart';
+import 'package:builiq/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(
-        useMaterial3: true
-      ),
-      home: LoadingScreen(),
+      initialRoute: AppRoutes.loading,
+      routes: {
+        AppRoutes.loading: (context) => const LoadingScreen(),
+        AppRoutes.home: (context) => const HomeScreen(),
+      },
     );
   }
 }
